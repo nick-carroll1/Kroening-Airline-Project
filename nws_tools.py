@@ -16,7 +16,7 @@ def get_alerts():
     return response.json()
 
 
-def main():
+def response_transform():
     # get the JSON object from the NWS API
     json_object = get_alerts()
     # keep the severity, certainty, and last two characters of the senderName as a pandas dataframe
@@ -41,8 +41,6 @@ def main():
     df["index"] = df.index
     # print the number of active alerts after dropping rows where the senderName is "WS"
     print({"Alerts after removing National-Level Alerts: ": len(df)})
-    # print the head of the dataframe
-    print(df.head())
     # convert the dataframe to a JSON object
     json_object = df.to_json(orient="records")
     # return the JSON object
@@ -50,4 +48,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    response_transform()

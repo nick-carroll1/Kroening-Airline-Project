@@ -9,7 +9,7 @@ import os
 import requests
 import json
 from databricks import sql
-from nws_tools import get_alerts, main
+from nws_tools import response_transform
 
 # define the function that will drop the table alerts if it exists and create a new table called alerts using the JSON returned from the get_alerts() function
 def create_alerts_table():
@@ -28,12 +28,12 @@ def create_alerts_table():
             )
 
             # get the json object from the get_alerts() function
-            json_object = get_alerts()
+            json_object = response_transform()
 
             values = ",".join(
                 [
-                    f"('{x['properties']['severity']}', '{x['properties']['certainty']}', '{x['properties']['senderName']}')"
-                    for x in json_object["features"]
+                    f"('{x['severity']}', '{x['certainty']}', '{x['senderName']}')"
+                    for x in json.loads(json_object)
                 ]
             )
 
@@ -59,10 +59,10 @@ def get_alerts_table_contents():
 
 
 # define a function to run the create_alerts_table() function and the get_alerts_table_contents() function
-def run():
+def query_and_load():
     create_alerts_table()
     get_alerts_table_contents()
 
 
-# run the main() function
-run()
+if __name__ == "__main__":
+    query_and_load()
