@@ -8,9 +8,13 @@ with sql.connect(
 ) as connection:
 
     with connection.cursor() as cursor:
-        cursor.execute("CREATE TABLE IF NOT EXISTS squares (x int, x_squared int)")
+
+        cursor.execute("DROP TABLE IF EXISTS squares")
+
+        cursor.execute("CREATE TABLE squares (x int, x_squared int)")
 
         squares = [(i, i * i) for i in range(100)]
+
         values = ",".join([f"({x}, {y})" for (x, y) in squares])
 
         cursor.execute(f"INSERT INTO squares VALUES {values}")
