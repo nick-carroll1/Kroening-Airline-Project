@@ -9,7 +9,7 @@ def get_alerts():
     # define the URL for the NWS API
     url = "https://api.weather.gov/alerts/active"
     # send the request to the NWS API
-    response = requests.get(url)
+    response = requests.get(url, timeout=5)
     # return the response from the NWS API
     return response.json()
 
@@ -57,15 +57,15 @@ def alert_info():
         columns=["severity", "certainty", "senderName"],
     )
     # print the total number of alerts
-    print(f"Total number of alerts: {len(df)}")
+    print("Total number of alerts: ", len(df))
     # print the number of active alerts from senderName "WS"
-    print(f"National-Level Alerts: ", len(df[df["senderName"] == "WS"]))
+    print("National-Level Alerts: ", len(df[df["senderName"] == "WS"]))
     # print the number of active alerts after dropping rows where the senderName is "WS"
-    print(f"State-Level Alerts: ", len(df[df["senderName"] != "WS"]))
+    print("State-Level Alerts: ", len(df[df["senderName"] != "WS"]))
     # print number of extreme alerts
-    print(f"Extreme Alerts: ", len(df[df["severity"] == "Extreme"]))
+    print("Extreme Alerts: ", len(df[df["severity"] == "Extreme"]))
     # print the five states with the most active alerts
     print(
-        f"States with the most active alerts: \n",
+        "States with the most active alerts: \n",
         df["senderName"].value_counts().head(),
     )
