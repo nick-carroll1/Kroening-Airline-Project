@@ -16,7 +16,7 @@ def get_alerts():
     return response.json()
 
 
-def response_transform():
+def package_alerts():
     # get the JSON object from the NWS API
     json_object = get_alerts()
     # keep the severity, certainty, and last two characters of the senderName as a pandas dataframe
@@ -31,21 +31,43 @@ def response_transform():
         ],
         columns=["severity", "certainty", "senderName"],
     )
-    # print the number of active alerts from senderName "WS"
-    print({"National-Level Alerts: ": len(df[df["senderName"] == "WS"])})
     # drop rows where the senderName is "WS"
     df = df[df["senderName"] != "WS"]
     # add an index column with new index values
     df = df.reset_index(drop=True)
     # add an column called index with the index values
     df["index"] = df.index
-    # print the number of active alerts after dropping rows where the senderName is "WS"
-    print({"Alerts after removing National-Level Alerts: ": len(df)})
     # convert the dataframe to a JSON object
     json_object = df.to_json(orient="records")
     # return the JSON object
     return json_object
 
 
-if __name__ == "__main__":
-    response_transform()
+def alert_info():
+    # get the JSON object from the NWS API
+    json_object = get_alerts()
+    # keep the severity, certainty, and last two characters of the senderName as a pandas dataframe
+    df = pd.DataFrame(
+        [
+            [
+                x["properties"]["severity"],
+                x["properties"]["certainty"],
+                x["properties"]["senderName"][-2:],
+            ]
+            for x in json_object["features"]
+        ],
+        columns=["severity", "certainty", "senderName"],
+    )
+    # print the total number of alerts
+    print(f"Total number of alerts: {len(df)}")
+    # print the number of active alerts from senderName "WS"
+    print(f"National-Level Alerts: ", len(df[df["senderName"] == "WS"]))
+    # print the number of active alerts after dropping rows where the senderName is "WS"
+    print(f"State-Level Alerts: ", len(df[df["senderName"] != "WS"]))
+    # print number of extreme alerts
+    print(f"Extreme Alerts: ", len(df[df["severity"] == "Extreme"]))
+    # print the five states with the most active alerts
+    print(
+        f"States with the most active alerts: \n",
+        df["senderName"].value_counts().head(),
+    )
