@@ -1,5 +1,6 @@
-from databricks import sql
+"""Tool for testing databricks connection and making a sample table"""
 import os
+from databricks import sql
 
 with sql.connect(
     server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
