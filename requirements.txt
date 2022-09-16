@@ -1,16 +1,12 @@
 pytest
 pylint
 click
+ipython
 databricks
 databricks-cli
-ipython
 databricks-sql-connector
 databricks-connect==10.4.*
-fastapi
 uvicorn[standard]
-dask
-dask[distributed]
 jupyter
-bokeh
 streamlit
 pandas

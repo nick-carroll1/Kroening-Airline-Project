@@ -1,3 +1,5 @@
+"""Module of tools to perform actions on a databricks cluster"""
+
 # import the necessary libraries
 import os
 import json
@@ -9,6 +11,7 @@ from nws_tools import package_alerts
 
 # define the function that will drop the table alerts if it exists and create a new table called alerts using the JSON returned from the get_alerts() function
 def create_and_load_alerts_table():
+    """Drop a table, create a new one, and load the alerts"""
     print("Connecting to Databricks...")
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
@@ -52,6 +55,7 @@ def create_and_load_alerts_table():
 
 # define the function that will return the contents of the alerts table
 def get_alerts_table_contents():
+    """Get the contents of the alerts table"""
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
         http_path=os.getenv("DATABRICKS_HTTP_PATH"),
@@ -72,6 +76,7 @@ def get_alerts_table_contents():
 
 # connect to databricks via SSH using python code via Databricks REST API
 def hello_cluster():
+    """Check the cluster for its name"""
     api_client = ApiClient(
         host=os.getenv("DATABRICKS_HOST"), token=os.getenv("DATABRICKS_TOKEN")
     )
