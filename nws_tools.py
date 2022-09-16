@@ -1,9 +1,7 @@
 # write a tool that gets all active alerts from the NWS
 # return a JSON and print the number of active alerts
 
-import os
 import requests
-import json
 import pandas as pd
 
 

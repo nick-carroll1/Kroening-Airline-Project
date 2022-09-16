@@ -1,7 +1,5 @@
 # import the necessary libraries
-from optparse import Values
 import os
-import requests
 import json
 from databricks import sql
 from databricks_cli.sdk.api_client import ApiClient

@@ -10,7 +10,6 @@ import click
 @click.group()
 def cli():
     """This is a CLI for the nws_tools and databricks_tools modules. It has functions to query for actice weather alerts, receive summary stats, and load the query payload into a databricks cluster."""
-    pass
 
 
 # build click command
