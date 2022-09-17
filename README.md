@@ -8,7 +8,7 @@
 
 ![alt text](https://github.com/nogibjj/Kroening-Airline-Project/blob/99b21adb679ab6226cf233a227a22814304b29d6/little_tools/Roadmap.png?raw=true)
 
-#### I'm currently working on Phase I of the project. Here's what that looked like with a [demo video here.](https://youtu.be/RnMwroCijJQ):
+#### I'm currently working on Phase I of the project. Here's what that looked like with a [demo video here](https://youtu.be/RnMwroCijJQ):
 
 * Downloaded a [dataset from Kaggle](https://www.kaggle.com/datasets/ryanjt/airline-delay-cause) that details roughly 20 years of airline flight delay.
 * Used a [Jupyter Notebook to do some EDA](https://github.com/nogibjj/Kroening-Airline-Project/blob/76239f9003a85e5217d82fcfa0d99335b9d10a5a/Airline_Delay_EDA.ipynb) on that dataset. Concluded that delays spike in the summer and around the winter holidays (shocking, I know)
